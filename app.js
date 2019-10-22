@@ -135,6 +135,16 @@ app.put('/ideas/:id', (req, res) => {
     });
 });
 
+//Delete form
+app.delete('/ideas/:id', (req, res) => {
+    Idea.remove({
+        _id: req.params.id
+    })
+    .then(() => {
+        res.redirect('/ideas');
+    });
+});
+
 app.listen(port, () => {
     console.log(`Server started port ${port}`);
 });
