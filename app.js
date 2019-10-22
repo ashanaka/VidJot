@@ -27,7 +27,7 @@ app.get('/ideas', (req, res) => {
         .then(ideas => {
             res.render('ideas/index', {
                 ideas: ideas
-            })
+            });
         });
 });
 
@@ -120,19 +120,19 @@ app.post('/ideas', (req, res) => {
 
 //Edit form process
 app.put('/ideas/:id', (req, res) => {
-    Idea.findOneAndDelete({
+    Idea.findOne({
         _id: req.params.id
     })
-        .then(idea => {
-            //new values
-            idea.title = req.body.title;
-            idea.title = req.body.details;
+    .then(idea => {
+        //new Values
+        idea.title = req.body.title;
+        idea.details = req.body.details;
 
-            idea.save()
+        idea.save()
             .then(idea => {
                 res.redirect('/ideas');
             })
-        });
+    });
 });
 
 app.listen(port, () => {
