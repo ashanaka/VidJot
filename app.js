@@ -1,10 +1,11 @@
+const flash = require('connect-flash');
+const session = require('express-session');
 const express = require('express');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-const flash = require('connect-flash');
-const session = require('express-session');
+
 
 const port = 5000;
 
@@ -38,10 +39,10 @@ require('./models/Idea');
 const Idea = mongoose.model('ideas');
 
 //How middleware works
-app.use(function (req, res, next) {
-    req.name = 'Ashan Shanaka';
-    next();
-});
+// app.use(function (req, res, next) {
+//     req.name = 'Ashan Shanaka';
+//     next();
+// });
 
 //Handlebars Middleware
 app.engine('handlebars', exphbs({
@@ -63,10 +64,10 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.use(flash())
+app.use(flash());
 
 //Global variables
-app.use(function(req,res, next){
+app.use(function(req, res, next){
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
@@ -132,9 +133,9 @@ app.post('/ideas', (req, res) => {
         new Idea(newUser)
             .save()
             .then(idea => {
-                req.flash('success_msg', 'Video idea was added successfully!')
+                req.flash('success_msg', 'Video idea was added successfully!');
                 res.redirect('/ideas');
-            })
+            });
     }
 });
 
@@ -150,7 +151,7 @@ app.put('/ideas/:id', (req, res) => {
 
         idea.save()
             .then(idea => {
-                req.flash('success_msg', 'Video idea edited')
+                req.flash('success_msg', 'Video idea edited');
                 res.redirect('/ideas');
             })
     });
@@ -158,7 +159,7 @@ app.put('/ideas/:id', (req, res) => {
 
 //Delete form
 app.delete('/ideas/:id', (req, res) => {
-    Idea.deleteOne({
+    Idea.remove({
         _id: req.params.id
     })
     .then(() => {
