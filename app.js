@@ -1,5 +1,5 @@
-const flash = require('connect-flash');
 const session = require('express-session');
+const flash = require('connect-flash');
 const express = require('express');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
@@ -38,11 +38,11 @@ app.get('/ideas', (req, res) => {
 require('./models/Idea');
 const Idea = mongoose.model('ideas');
 
-//How middleware works
-// app.use(function (req, res, next) {
-//     req.name = 'Ashan Shanaka';
-//     next();
-// });
+// How middleware works
+app.use(function (req, res, next) {
+    req.name = 'Ashan Shanaka';
+    next();
+});
 
 //Handlebars Middleware
 app.engine('handlebars', exphbs({
