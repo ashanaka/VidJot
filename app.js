@@ -134,6 +134,7 @@ app.post('/ideas', (req, res) => {
             .save()
             .then(idea => {
                 req.flash('success_msg', 'Video idea was added successfully!');
+                
                 res.redirect('/ideas');
             });
     }
@@ -152,6 +153,7 @@ app.put('/ideas/:id', (req, res) => {
         idea.save()
             .then(idea => {
                 req.flash('success_msg', 'Video idea edited');
+                // console.log(req.flash('success_msg'));
                 res.redirect('/ideas');
             })
     });
